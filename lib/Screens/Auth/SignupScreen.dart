@@ -224,6 +224,7 @@ class _SignupScreenState extends State<SignupScreen> {
           'address': _addressController.text, 
           'phone': _phoneController.text, 
           'role': _selectedRole, 
+          'photoURL':''
         });
 
         print('User signed up: ${user.uid}');
