@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hardwarehub/Screens/User/ProfileSettingScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -11,7 +12,9 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  User? _user;
+  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+  late DocumentSnapshot _userDoc;
+  bool _isLoading = true;
 
   @override
   void initState() {
@@ -21,62 +24,71 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void _getUserDetails() async {
     final User? user = _auth.currentUser;
+    final doc = await _firestore.collection('users').doc(user!.uid).get();
     setState(() {
-      _user = user;
+      _userDoc = doc;
+      _isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            pinned: true,
-            expandedHeight: 250,
-            flexibleSpace: FlexibleSpaceBar(
-              background: Container(
-                decoration: const BoxDecoration(
-                  image: DecorationImage(
-                    image: AssetImage('profileappbarBG.jpg'),
-                    fit: BoxFit.cover,
+      body: _isLoading
+          ? const Center(child: CircularProgressIndicator())
+          : CustomScrollView(
+              slivers: [
+                SliverAppBar(
+                  pinned: true,
+                  expandedHeight: 250,
+                  flexibleSpace: FlexibleSpaceBar(
+                    background: Container(
+                      decoration: const BoxDecoration(
+                        image: DecorationImage(
+                          image: AssetImage('profileappbarBG.jpg'),
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    ),
+                  ),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.settings),
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const ProfileSettingScreen()),
+                        );
+                      },
+                    ),
+                  ],
+                  leading: CircleAvatar(
+                    backgroundImage: _userDoc['photoURL'] != null
+                        ? NetworkImage(_userDoc['photoURL'])
+                        : null,
+                    child: _userDoc['photoURL'] == null ||
+                            _userDoc['photoURL'] == ''
+                        ? Text(
+                            _userDoc['name'] != null
+                                ? _userDoc['name'].substring(0, 1).toUpperCase()
+                                : '',
+                            style: const TextStyle(fontSize: 18),
+                          )
+                        : null,
                   ),
                 ),
-              ),
+                SliverList(
+                  delegate: SliverChildListDelegate([
+                    const SizedBox(height: 16),
+                    _buildOrderColumn(context),
+                    const SizedBox(height: 16),
+                    _buildServiceColumn(context),
+                  ]),
+                ),
+              ],
             ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.settings),
-                onPressed: () {
-                  // Navigator.push(
-                  //   context,
-                  //   // MaterialPageRoute(builder: (context) => const ProfileSettingScreen()),
-                  // );
-                },
-              ),
-            ],
-            leading: CircleAvatar(
-              backgroundImage: _user?.photoURL != null
-                  ? NetworkImage(_user!.photoURL!)
-                  : null,
-              child: _user?.photoURL == null
-                  ? Text(
-                      _user?.displayName?.substring(0, 1).toUpperCase() ?? '',
-                      style: const TextStyle(fontSize: 18),
-                    )
-                  : null,
-            ),
-          ),
-          SliverList(
-            delegate: SliverChildListDelegate([
-              const SizedBox(height: 16),
-              _buildOrderColumn(context),
-              const SizedBox(height: 16),
-              _buildServiceColumn(context),
-            ]),
-          ),
-        ],
-      ),
     );
   }
 
@@ -136,24 +148,42 @@ class _ProfileScreenState extends State<ProfileScreen> {
           padding: const EdgeInsets.symmetric(horizontal: 16),
           child: Text(
             'My Service',
-            style: Theme.of(context).textTheme.headline6,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
         const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.work, 'My Sells'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.assignment, 'My Service'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.message, 'My Messages'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.payment, 'Payment Option'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.help, 'Help Center'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.chat_bubble, 'Chat with Us'),
-        const SizedBox(height: 16),
-        _buildOrderTile(context, Icons.star, 'My Reviews'),
+        Center(
+          child: Wrap(
+          alignment: WrapAlignment.spaceEvenly,
+          children: [
+            _buildServiceTile(context, Icons.work, 'My Sells'),
+            _buildServiceTile(context, Icons.assignment, 'My Service'),
+            _buildServiceTile(context, Icons.message, 'My Messages'),
+            _buildServiceTile(context, Icons.payment, 'Payment Option'),
+            _buildServiceTile(context, Icons.help, 'Help Center'),
+            _buildServiceTile(context, Icons.chat_bubble, 'Chat with Us'),
+            _buildServiceTile(context, Icons.star, 'My Reviews'),
+          ],
+        ),
+        )
       ],
+    );
+  }
+
+  Widget _buildServiceTile(BuildContext context, IconData icon, String title) {
+    return Padding(padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom: 10.0),
+    child: GestureDetector(
+      onTap: () {
+        // Navigate to order screen
+      },
+      child: Column(
+        children: [
+          Icon(icon),
+          const SizedBox(height: 4),
+          Text(title),
+        ],
+      ),
+    )
     );
   }
 }
