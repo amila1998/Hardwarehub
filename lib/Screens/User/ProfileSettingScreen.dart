@@ -12,6 +12,10 @@ class ProfileSettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profile Settings'),
+        leading: IconButton(icon: const Icon(Icons.arrow_back),
+        onPressed: () {
+          Navigator.of(context).pop();
+        },),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

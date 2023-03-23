@@ -23,7 +23,7 @@ class ItemProvider extends ChangeNotifier {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final snapshot =
-          await _itemsCollectionRef.where('userId', isEqualTo: user!.uid).get();
+          await _itemsCollectionRef.get();
       _items =
           snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
       notifyListeners();
@@ -31,10 +31,22 @@ class ItemProvider extends ChangeNotifier {
       print('Error loading items: $e');
     }
   }
+ 
+
+// private method to load items by user from the database
+Future<void> loadItems(String userId) async {
+  try {
+    final snapshot = await _itemsCollectionRef.where('userId', isEqualTo: userId).get();
+    _items = snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
+    notifyListeners();
+  } catch (e) {
+    print('Error loading items: $e');
+  }
+}
 
 // method to add a new todo to the database and _items list
   Future<void> addItem(String name, double price, String description,
-      bool isAvailable, String mesurement, int quantity) async {
+      bool isAvailable, String mesurement, int quantity, String itemPhoto) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _itemsCollectionRef.add({
@@ -44,7 +56,8 @@ class ItemProvider extends ChangeNotifier {
         'isAvailable': isAvailable,
         'mesurement': mesurement,
         'quantity': quantity,
-        'userId': user!.uid
+        'userId': user!.uid,
+        'itemPhoto': itemPhoto
       });
       final item = Item(
         userId: user.uid,
@@ -55,6 +68,7 @@ class ItemProvider extends ChangeNotifier {
         isAvailable: isAvailable,
         mesurement: mesurement,
         quantity: quantity,
+        itemPhoto:itemPhoto,
       );
       _items.add(item);
       notifyListeners();

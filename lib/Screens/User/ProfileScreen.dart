@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:hardwarehub/Providers/ItemProvider.dart';
+import 'package:hardwarehub/Screens/User/MySells/MySellsScreen.dart';
 import 'package:hardwarehub/Screens/User/ProfileSettingScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
+import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -178,6 +181,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
         child: GestureDetector(
           onTap: () {
             switch (title) {
+              case 'My Sells':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MySellsScreen()),
+                  );
+                }
+                break;
+
               case 'My Reviews':
                 {
                   Navigator.push(

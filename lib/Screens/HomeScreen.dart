@@ -1,5 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:hardwarehub/Providers/AuthProvider.dart';
+import 'package:hardwarehub/Providers/ItemProvider.dart';
 import 'package:hardwarehub/Screens/User/ProfileScreen.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -26,6 +30,11 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ItemProvider>(context);
+    final authProvider = Provider.of<AuthProvider>(context);
+    final itemProvider = Provider.of<ItemProvider>(context);
+    final user = FirebaseAuth.instance.currentUser;
+    
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
@@ -36,9 +45,8 @@ class _HomeScreenState extends State<HomeScreen> {
           BottomNavigationBarItem(
             icon: Icon(
               Icons.home,
-              ),
+            ),
             label: 'Home',
-            
           ),
           BottomNavigationBarItem(
             icon: Icon(Icons.message),
