@@ -9,6 +9,7 @@ class Item {
   final String mesurement;
   final int quantity;
   final String userId;
+  final String itemPhoto;
 
   Item(
       {required this.id,
@@ -18,7 +19,8 @@ class Item {
       required this.isAvailable,
       required this.mesurement,
       required this.quantity,
-      required this.userId});
+      required this.userId,
+      required this.itemPhoto});
 
   factory Item.fromDocumentSnapshot(DocumentSnapshot snapshot) {
     return Item(
@@ -30,8 +32,10 @@ class Item {
       mesurement: snapshot['mesurement'],
       quantity: snapshot['quantity'],
       userId: snapshot['userId'],
+      itemPhoto: snapshot['itemPhoto'],
     );
   }
+  
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -41,6 +45,7 @@ class Item {
       'mesurement': mesurement,
       'quantity': quantity,
       'userId': userId,
+      'itemPhoto':itemPhoto,
     };
   }
 }
