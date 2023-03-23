@@ -35,6 +35,7 @@ class Item {
       itemPhoto: snapshot['itemPhoto'],
     );
   }
+  
   Map<String, dynamic> toMap() {
     return {
       'name': name,

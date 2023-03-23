@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hardwarehub/Screens/User/MySells/AddItemScreen.dart';
 import 'package:provider/provider.dart';
 
 class MySellsScreen extends StatelessWidget {
@@ -42,7 +43,12 @@ class MySellsScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.add),
         onPressed: () {
-          // TODO: Add item screen
+            Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  AddItemScreen()),
+                        );
         },
       ),
     );
