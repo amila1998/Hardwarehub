@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hardwarehub/Screens/User/ProfileSettingScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
 
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
@@ -154,36 +156,45 @@ class _ProfileScreenState extends State<ProfileScreen> {
         const SizedBox(height: 16),
         Center(
           child: Wrap(
-          alignment: WrapAlignment.spaceEvenly,
-          children: [
-            _buildServiceTile(context, Icons.work, 'My Sells'),
-            _buildServiceTile(context, Icons.assignment, 'My Service'),
-            _buildServiceTile(context, Icons.message, 'My Messages'),
-            _buildServiceTile(context, Icons.payment, 'Payment Option'),
-            _buildServiceTile(context, Icons.help, 'Help Center'),
-            _buildServiceTile(context, Icons.chat_bubble, 'Chat with Us'),
-            _buildServiceTile(context, Icons.star, 'My Reviews'),
-          ],
-        ),
+            alignment: WrapAlignment.spaceEvenly,
+            children: [
+              _buildServiceTile(context, Icons.work, 'My Sells'),
+              _buildServiceTile(context, Icons.assignment, 'My Service'),
+              _buildServiceTile(context, Icons.message, 'My Messages'),
+              _buildServiceTile(context, Icons.payment, 'Payment Option'),
+              _buildServiceTile(context, Icons.help, 'Help Center'),
+              _buildServiceTile(context, Icons.chat_bubble, 'Chat with Us'),
+              _buildServiceTile(context, Icons.star, 'My Reviews'),
+            ],
+          ),
         )
       ],
     );
   }
 
   Widget _buildServiceTile(BuildContext context, IconData icon, String title) {
-    return Padding(padding: const EdgeInsets.only(left:10.0,right: 10.0,bottom: 10.0),
-    child: GestureDetector(
-      onTap: () {
-        // Navigate to order screen
-      },
-      child: Column(
-        children: [
-          Icon(icon),
-          const SizedBox(height: 4),
-          Text(title),
-        ],
-      ),
-    )
-    );
+    return Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+        child: GestureDetector(
+          onTap: () {
+            switch (title) {
+              case 'My Reviews':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyReviewsScreen()),
+                  );
+                }
+                break;
+            }
+          },
+          child: Column(
+            children: [
+              Icon(icon),
+              const SizedBox(height: 4),
+              Text(title),
+            ],
+          ),
+        ));
   }
 }
