@@ -15,14 +15,27 @@ class ReviewProvider extends ChangeNotifier {
   // constructor to initialize the TodoProvider
   ReviewProvider() {
     _reviewsCollectionRef = FirebaseFirestore.instance.collection('reviews');
-    _loadreviews();
+    //_loadreviews();
   }
 
-  // private method to load reviews from the database
-  Future<void> _loadreviews() async {
+  // // private method to load reviews from the database
+  // Future<void> _loadreviews() async {
+  //   try {
+  //     //final user = FirebaseAuth.instance.currentUser;
+  //     final snapshot = await _reviewsCollectionRef.get();
+  //     _reviews =
+  //         snapshot.docs.map((doc) => Review.fromDocumentSnapshot(doc)).toList();
+  //     notifyListeners();
+  //   } catch (e) {
+  //     print('Error loading Reviews: $e');
+  //   }
+  // }
+
+  // private method to load reviews by user from the database
+  Future<void> loadReviews(String userId) async {
     try {
-      //final user = FirebaseAuth.instance.currentUser;
-      final snapshot = await _reviewsCollectionRef.get();
+      final snapshot =
+          await _reviewsCollectionRef.where('userId', isEqualTo: userId).get();
       _reviews =
           snapshot.docs.map((doc) => Review.fromDocumentSnapshot(doc)).toList();
       notifyListeners();
@@ -31,11 +44,11 @@ class ReviewProvider extends ChangeNotifier {
     }
   }
 
-  // private method to load reviews by user from the database
-  Future<void> loadReviews(String userId) async {
+  // private method to load reviews for a item from the database
+  Future<void> loadReviewsForItem(String itemId) async {
     try {
       final snapshot =
-          await _reviewsCollectionRef.where('userId', isEqualTo: userId).get();
+          await _reviewsCollectionRef.where('itemId', isEqualTo: itemId).get();
       _reviews =
           snapshot.docs.map((doc) => Review.fromDocumentSnapshot(doc)).toList();
       notifyListeners();
