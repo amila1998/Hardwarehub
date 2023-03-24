@@ -44,13 +44,11 @@ dependencies:
   provider: ^6.0.5
   image_picker: ^0.8.7
   firebase_storage: ^11.0.16
-  cloudinary_flutter: ^0.0.5
-  cloudinary_dart: ^0.0.11
-  cloudinary: ^1.1.1
-  firebase: ^9.0.3
   universal_io: ^2.2.0
   file_picker: ^5.2.6
   carousel_slider: ^4.2.1
+  flutter_custom_cards: ^0.2.1
+
 
 
 

@@ -2,32 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:hardwarehub/Screens/Items/ItemDetailsPage.dart';
 import 'package:hardwarehub/Screens/User/MySells/AddItemScreen.dart';
 import 'package:provider/provider.dart';
 
-class MySellsScreen extends StatelessWidget {
-  const MySellsScreen({super.key});
+class HomePageScreen extends StatelessWidget {
+  const HomePageScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
     final user = FirebaseAuth.instance.currentUser;
-    
-    void getItems () async{
-      await itemProvider.loadItemsbyuser(user!.uid);
-    }
-
-    getItems();
-
+    itemProvider.loaditems();
+   
     return Scaffold(
-      appBar: AppBar(
-          title: const Text('My Sells'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )),
+      // appBar: AppBar(
+      //     title: const Text('My Sells'),
+      //   ),
       body: Container(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
@@ -43,13 +34,21 @@ class MySellsScreen extends StatelessWidget {
               width: 200,
               child: CustomCard(
                 borderRadius: 10,
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ItemDetailPage(item: item,)
+                        ),
+                  );
+                },
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     Expanded(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
@@ -93,30 +92,6 @@ class MySellsScreen extends StatelessWidget {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 5.0),
-                          Row(
-                            children: [
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.edit),
-                                  label: const Text(''),
-                                  onPressed: () {
-                                    // TODO: Implement update logic
-                                  },
-                                ),
-                              ),
-                              const SizedBox(width: 10.0),
-                              Expanded(
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.delete),
-                                  label: const Text(''),
-                                  onPressed: () {
-                                    itemProvider.deleteItemById(item.id);
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
                         ],
                       ),
                     ),
@@ -126,15 +101,6 @@ class MySellsScreen extends StatelessWidget {
             );
           },
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add),
-        onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddItemScreen()),
-          );
-        },
       ),
     );
   }
