@@ -30,6 +30,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void _getUserDetails() async {
     final User? user = _auth.currentUser;
     final doc = await _firestore.collection('users').doc(user!.uid).get();
+    print(doc);
     setState(() {
       _userDoc = doc;
       _isLoading = false;
@@ -91,8 +92,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 16),
                     _buildServiceColumn(context),
                     const SizedBox(height: 16),
-                    if (_userDoc['role'] == 'delivery')
-                      _buildServiceColumn(context),
+                    // if (_userDoc['role'] == 'deliver')
+                      // TODO: Need to show deliver options
                   ]),
                 ),
               ],
