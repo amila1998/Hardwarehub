@@ -67,7 +67,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
       final timestamp = DateTime.now().millisecondsSinceEpoch.toString();
       firabase_storage.Reference ref = firabase_storage.FirebaseStorage.instance
           .ref()
-          .child('images/$timestamp');
+          .child('images/$timestamp.jpg');
 
       final metadata =
           firabase_storage.SettableMetadata(contentType: 'image/jpeg');

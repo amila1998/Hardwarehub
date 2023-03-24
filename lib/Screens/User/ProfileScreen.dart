@@ -88,6 +88,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _buildOrderColumn(context),
                     const SizedBox(height: 16),
                     _buildServiceColumn(context),
+                     const SizedBox(height: 16),
+                    if (_userDoc['role'] == 'delivery')
+                      _buildServiceColumn(context),
+
                   ]),
                 ),
               ],
@@ -185,7 +189,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           context,
                           MaterialPageRoute(
                               builder: (context) =>
-                                  MySellsScreen()
+                                  const MySellsScreen()
                         ),
                   );
                 }

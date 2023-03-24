@@ -15,11 +15,11 @@ class ItemProvider extends ChangeNotifier {
   // constructor to initialize the TodoProvider
   ItemProvider() {
     _itemsCollectionRef = FirebaseFirestore.instance.collection('items');
-    _loaditems();
+    //_loaditems();
   }
 
 // private method to load items from the database
-  Future<void> _loaditems() async {
+  Future<void> loaditems() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final snapshot =
@@ -34,7 +34,7 @@ class ItemProvider extends ChangeNotifier {
  
 
 // private method to load items by user from the database
-Future<void> loadItems(String userId) async {
+Future<void> loadItemsbyuser(String userId) async {
   try {
     final snapshot = await _itemsCollectionRef.where('userId', isEqualTo: userId).get();
     _items = snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
