@@ -4,6 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
 import 'package:hardwarehub/Screens/User/MySells/MySellsScreen.dart';
 import 'package:hardwarehub/Screens/User/ProfileSettingScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
 import 'package:provider/provider.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -35,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   @override
-  Widget build(BuildContext context) {   
+  Widget build(BuildContext context) {
     return Scaffold(
       body: _isLoading
           ? const Center(child: CircularProgressIndicator())
@@ -88,10 +90,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     _buildOrderColumn(context),
                     const SizedBox(height: 16),
                     _buildServiceColumn(context),
-                     const SizedBox(height: 16),
+                    const SizedBox(height: 16),
                     if (_userDoc['role'] == 'delivery')
                       _buildServiceColumn(context),
-
                   ]),
                 ),
               ],
@@ -186,11 +187,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
               case 'My Sells':
                 {
                   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  const MySellsScreen()
-                        ),
+                    context,
+                    MaterialPageRoute(builder: (context) => MySellsScreen()),
+                  );
+                }
+                break;
+
+              case 'My Reviews':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyReviewsScreen()),
                   );
                 }
                 break;

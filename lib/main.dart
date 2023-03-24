@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hardwarehub/PageTranstitons/MyPageTransitionsTheme.dart';
 import 'package:hardwarehub/Providers/AuthProvider.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
+import 'package:hardwarehub/Providers/ReviewProvider.dart';
 import 'package:hardwarehub/Screens/Auth/AuthScreen.dart';
 import 'package:hardwarehub/Screens/Auth/LoginScreen.dart';
 import 'package:hardwarehub/Screens/HomeScreen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
+        ChangeNotifierProvider(create: (_) => ReviewProvider()),
       ],
       child: MaterialApp(
         title: 'Hardware Hub',
@@ -47,7 +49,7 @@ class MyApp extends StatelessWidget {
               future: Future.delayed(const Duration(seconds: 2)),
               builder: (context, AsyncSnapshot<dynamic> snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
-                  return const SplashScreen(); 
+                  return const SplashScreen();
                 } else {
                   return StreamBuilder(
                     stream: FirebaseAuth.instance.authStateChanges(),
