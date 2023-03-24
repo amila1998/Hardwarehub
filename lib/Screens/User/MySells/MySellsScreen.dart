@@ -5,20 +5,25 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hardwarehub/Screens/User/MySells/AddItemScreen.dart';
 import 'package:provider/provider.dart';
 
-class MySellsScreen extends StatelessWidget {
-  const MySellsScreen({super.key});
+class MySellsScreen extends StatefulWidget {
+  const MySellsScreen({Key? key}) : super(key: key);
+
+  @override
+  _MySellsScreenState createState() => _MySellsScreenState();
+}
+
+class _MySellsScreenState extends State<MySellsScreen> {
+  @override
+  void initState() {
+    super.initState();
+    final user = FirebaseAuth.instance.currentUser;
+    Provider.of<ItemProvider>(context, listen: false).loadItemsbyuser(user!.uid);
+  }
 
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
-    final user = FirebaseAuth.instance.currentUser;
-    
-    void getItems () async{
-      await itemProvider.loadItemsbyuser(user!.uid);
-    }
-
-    getItems();
-
+  
     return Scaffold(
       appBar: AppBar(
           title: const Text('My Sells'),
@@ -49,7 +54,7 @@ class MySellsScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
