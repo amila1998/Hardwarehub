@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Providers/AuthProvider.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
+import 'package:hardwarehub/Screens/Items/HomePageScreen.dart';
 import 'package:hardwarehub/Screens/User/ProfileScreen.dart';
 import 'package:provider/provider.dart';
 
@@ -16,7 +17,7 @@ class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
   static const List<Widget> _pages = <Widget>[
-    HomePage(),
+    HomePageScreen(),
     MessagesPage(),
     CartPage(),
     ProfileScreen(),
@@ -30,10 +31,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final productProvider = Provider.of<ItemProvider>(context);
-    final authProvider = Provider.of<AuthProvider>(context);
-    final itemProvider = Provider.of<ItemProvider>(context);
-    final user = FirebaseAuth.instance.currentUser;
+    // final productProvider = Provider.of<ItemProvider>(context);
+    // final authProvider = Provider.of<AuthProvider>(context);
+    // final itemProvider = Provider.of<ItemProvider>(context);
+    // final user = FirebaseAuth.instance.currentUser;
     
     return Scaffold(
       body: IndexedStack(
@@ -70,17 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 }
 
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Home Page'),
-    );
-  }
-}
-
 class MessagesPage extends StatelessWidget {
   const MessagesPage({super.key});
 
@@ -99,17 +89,6 @@ class CartPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Center(
       child: Text('Cart Page'),
-    );
-  }
-}
-
-class AccountPage extends StatelessWidget {
-  const AccountPage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Center(
-      child: Text('Account Page'),
     );
   }
 }
