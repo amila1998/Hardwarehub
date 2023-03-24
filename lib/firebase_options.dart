@@ -44,40 +44,40 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyCLu7eOVfJxuahTPLmRsaQRNTUYYNV9ncM',
-    appId: '1:57209626791:web:03124d0b7581cde2dc3b82',
-    messagingSenderId: '57209626791',
-    projectId: 'hardwarehub-2a75d',
-    authDomain: 'hardwarehub-2a75d.firebaseapp.com',
-    storageBucket: 'hardwarehub-2a75d.appspot.com',
-    measurementId: 'G-SBRSPRKXKS',
+    apiKey: 'AIzaSyBU2eEGQQ7vV-mtZpn0j0TmIaRlAl1hkVw',
+    appId: '1:916587102752:web:eb773f5e3c83b70db03245',
+    messagingSenderId: '916587102752',
+    projectId: 'harwarehuborg',
+    authDomain: 'harwarehuborg.firebaseapp.com',
+    storageBucket: 'harwarehuborg.appspot.com',
+    measurementId: 'G-MME0FDN2WE',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDz5BE-ZHTYu38RU5_5jWs_rCCkygWg8AU',
-    appId: '1:57209626791:android:ff4f90f090008f3cdc3b82',
-    messagingSenderId: '57209626791',
-    projectId: 'hardwarehub-2a75d',
-    storageBucket: 'hardwarehub-2a75d.appspot.com',
+    apiKey: 'AIzaSyBKNA9nQacLORaOSmRT6v2iLOGTewlK80k',
+    appId: '1:916587102752:android:b9e186296e234793b03245',
+    messagingSenderId: '916587102752',
+    projectId: 'harwarehuborg',
+    storageBucket: 'harwarehuborg.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyCanCdYe61Pja8KCX0-hYzpfiAEuDNiECU',
-    appId: '1:57209626791:ios:72e48810dd35fb48dc3b82',
-    messagingSenderId: '57209626791',
-    projectId: 'hardwarehub-2a75d',
-    storageBucket: 'hardwarehub-2a75d.appspot.com',
-    iosClientId: '57209626791-srur0ce06bu17r59fjrrnal2f1fsued1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDV-16R6auCOlVyOkW-3svEI5SXCJWrD0U',
+    appId: '1:916587102752:ios:a94afdbea801bbe0b03245',
+    messagingSenderId: '916587102752',
+    projectId: 'harwarehuborg',
+    storageBucket: 'harwarehuborg.appspot.com',
+    iosClientId: '916587102752-nsb4pptc9gd03o36pegjdh2bvohfv5em.apps.googleusercontent.com',
     iosBundleId: 'com.example.hardwarehub',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyCanCdYe61Pja8KCX0-hYzpfiAEuDNiECU',
-    appId: '1:57209626791:ios:72e48810dd35fb48dc3b82',
-    messagingSenderId: '57209626791',
-    projectId: 'hardwarehub-2a75d',
-    storageBucket: 'hardwarehub-2a75d.appspot.com',
-    iosClientId: '57209626791-srur0ce06bu17r59fjrrnal2f1fsued1.apps.googleusercontent.com',
+    apiKey: 'AIzaSyDV-16R6auCOlVyOkW-3svEI5SXCJWrD0U',
+    appId: '1:916587102752:ios:a94afdbea801bbe0b03245',
+    messagingSenderId: '916587102752',
+    projectId: 'harwarehuborg',
+    storageBucket: 'harwarehuborg.appspot.com',
+    iosClientId: '916587102752-nsb4pptc9gd03o36pegjdh2bvohfv5em.apps.googleusercontent.com',
     iosBundleId: 'com.example.hardwarehub',
   );
 }

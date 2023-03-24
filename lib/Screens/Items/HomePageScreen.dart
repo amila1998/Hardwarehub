@@ -6,15 +6,25 @@ import 'package:hardwarehub/Screens/Items/ItemDetailsPage.dart';
 import 'package:hardwarehub/Screens/User/MySells/AddItemScreen.dart';
 import 'package:provider/provider.dart';
 
-class HomePageScreen extends StatelessWidget {
-  const HomePageScreen({super.key});
+class HomePageScreen extends StatefulWidget {
+  const HomePageScreen({Key? key}) : super(key: key);
+
+  @override
+  _HomePageScreenState createState() => _HomePageScreenState();
+}
+
+class _HomePageScreenState extends State<HomePageScreen> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<ItemProvider>(context, listen: false).loaditems();
+  }
 
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
     final user = FirebaseAuth.instance.currentUser;
-    itemProvider.loaditems();
-   
+
     return Scaffold(
       // appBar: AppBar(
       //     title: const Text('My Sells'),
@@ -36,11 +46,11 @@ class HomePageScreen extends StatelessWidget {
                 borderRadius: 10,
                 onTap: () {
                   Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ItemDetailPage(item: item,)
-                        ),
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ItemDetailPage(
+                              item: item,
+                            )),
                   );
                 },
                 child: Column(
@@ -52,9 +62,9 @@ class HomePageScreen extends StatelessWidget {
                           topLeft: Radius.circular(10),
                           topRight: Radius.circular(10),
                         ),
-                        child: FadeInImage.assetNetwork(
-                          image: item.itemPhoto,
-                          placeholder: 'logo.png',
+                        child: FadeInImage(
+                          image: NetworkImage(item.itemPhoto.toString()),
+                          placeholder: const AssetImage('logo.png'),
                           fit: BoxFit.cover,
                         ),
                       ),

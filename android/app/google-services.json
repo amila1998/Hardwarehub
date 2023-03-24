@@ -1,41 +1,34 @@
 {
   "project_info": {
-    "project_number": "57209626791",
-    "project_id": "hardwarehub-2a75d",
-    "storage_bucket": "hardwarehub-2a75d.appspot.com"
+    "project_number": "916587102752",
+    "project_id": "harwarehuborg",
+    "storage_bucket": "harwarehuborg.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:57209626791:android:ff4f90f090008f3cdc3b82",
+        "mobilesdk_app_id": "1:916587102752:android:b9e186296e234793b03245",
         "android_client_info": {
           "package_name": "com.example.hardwarehub"
         }
       },
       "oauth_client": [
         {
-          "client_id": "57209626791-117q255qno8i8f9iha5g07h10t9g10og.apps.googleusercontent.com",
+          "client_id": "916587102752-o5gb9v8es9ehfi7e8eh8i1p6tg2c0mls.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDz5BE-ZHTYu38RU5_5jWs_rCCkygWg8AU"
+          "current_key": "AIzaSyBKNA9nQacLORaOSmRT6v2iLOGTewlK80k"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "57209626791-117q255qno8i8f9iha5g07h10t9g10og.apps.googleusercontent.com",
+              "client_id": "916587102752-o5gb9v8es9ehfi7e8eh8i1p6tg2c0mls.apps.googleusercontent.com",
               "client_type": 3
-            },
-            {
-              "client_id": "57209626791-srur0ce06bu17r59fjrrnal2f1fsued1.apps.googleusercontent.com",
-              "client_type": 2,
-              "ios_info": {
-                "bundle_id": "com.example.hardwarehub"
-              }
             }
           ]
         }
