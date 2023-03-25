@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Models/Item.dart';
+import 'package:provider/provider.dart';
+import '../../Providers/CartProvider.dart';
+import '../Cart/CartScreen.dart';
+import '../User/MySells/AddItemScreen.dart';
 
 class ItemDetailPage extends StatefulWidget {
   final Item item;
@@ -11,11 +15,37 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
+  
   @override
   Widget build(BuildContext context) {
+    final cartProvider = Provider.of<CartProvider>(context);
+
+    void _submitForm() async {
+      final name = widget.item.name;
+      final price = widget.item.price;
+      final quantity = 1;
+      final itemId = widget.item.id;
+
+      print(name);
+      print(price);
+      print(quantity);
+      print(itemId);
+      await cartProvider.addCartItem(
+          name,
+          price,
+          quantity,
+          itemId,
+        );
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const CartScreen()),
+      );
+    }
+
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.item.id),
+        title: Text(widget.item.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -41,7 +71,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$${widget.item.price}',
+                    'Price : \$${widget.item.price}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.green,
@@ -50,7 +80,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.item.description,
+                    'Description : ${widget.item.description}',
                     style: const TextStyle(
                       fontSize: 16,
                     ),
@@ -117,12 +147,13 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       ),
       floatingActionButton: FloatingActionButton(
         child: const Icon(Icons.shopping_cart_checkout),
-        onPressed: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => const AddItemScreen()),
-          // );
-        },
+        // onPressed: () {
+        //   Navigator.push(
+        //     context,
+        //     MaterialPageRoute(builder: (context) => const CartScreen()),
+        //   );
+        // },
+        onPressed: _submitForm,
       ),
     );
   }
