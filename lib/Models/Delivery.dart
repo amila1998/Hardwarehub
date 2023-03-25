@@ -4,11 +4,19 @@ class Delivery {
   final String id;
   final String orderId;
   final String status;
+  final String name;
+  final String userId;
+  final String itemId;
+  final String itemPhoto;
 
   Delivery({
     required this.id,
     required this.orderId,
     required this.status,
+    required this.name,
+    required this.userId,
+    required this.itemId,
+    required this.itemPhoto,
   });
 
   factory Delivery.fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -16,6 +24,10 @@ class Delivery {
       id: snapshot.id,
       orderId: snapshot['orderId'],
       status: snapshot['status'],
+      name: snapshot['name'],
+      userId: snapshot['userId'],
+      itemId: snapshot['itemId'],
+      itemPhoto: snapshot['itemPhoto'],
     );
   }
 
@@ -24,6 +36,10 @@ class Delivery {
       'id': id,
       'orderId': orderId,
       'status': status,
+      'name': name,
+      'userId': userId,
+      'itemId': itemId,
+      'itemPhoto': itemPhoto,
     };
   }
 }
