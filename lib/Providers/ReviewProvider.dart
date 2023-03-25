@@ -18,7 +18,7 @@ class ReviewProvider extends ChangeNotifier {
     //_loadreviews();
   }
 
-  // // private method to load reviews from the database
+  // private method to load reviews from the database
   // Future<void> _loadreviews() async {
   //   try {
   //     //final user = FirebaseAuth.instance.currentUser;
@@ -58,24 +58,27 @@ class ReviewProvider extends ChangeNotifier {
   }
 
   // method to add a new review to the database and _reviews list
-  Future<void> addReview(
-    String title,
-    String description,
-    String itemId,
-  ) async {
+  Future<void> addReview(String title, String description, String itemId,
+      int rating, String itemName, String userName) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _reviewsCollectionRef.add({
         'title': title,
         'description': description,
+        'rating': rating,
         'itemId': itemId,
+        'itemName': itemName,
         'userId': user!.uid,
+        'userName': userName,
       });
       final review = Review(
         userId: user.uid,
+        userName: userName,
         id: docRef.id,
         title: title,
         description: description,
+        rating: rating.toInt(),
+        itemName: itemName,
         itemId: itemId,
       );
       _reviews.add(review);
