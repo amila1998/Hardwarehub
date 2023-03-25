@@ -97,7 +97,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 16),
                     _buildServiceColumn(context),
                     const SizedBox(height: 16),
-                     _buildDeliveryColumn(context),
+                    _buildDeliveryColumn(context),
                     const SizedBox(height: 16),
                     // if (_userDoc['role'] == 'deliver')
                     // TODO: Need to show deliver options
@@ -109,40 +109,54 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildOrderColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            'My Orders',
-            style: Theme.of(context).textTheme.titleLarge,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildOrderTile(context, Icons.on_device_training, 'My Oder'),
-            _buildOrderTile(context, Icons.local_shipping, 'To Ship'),
-            _buildOrderTile(context, Icons.local_mall, 'To Receive'),
-            _buildOrderTile(context, Icons.rate_review, 'To Review'),
-          ],
-        ),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _buildOrderTile(context, Icons.undo, 'My Returns'),
-            _buildOrderTile(context, Icons.cancel, 'My Cancellations'),
-          ],
-        ),
-      ],
+        ],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'My Orders',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildOrderTile(context, Icons.on_device_training, 'My Oder'),
+              _buildOrderTile(context, Icons.local_shipping, 'To Ship'),
+              _buildOrderTile(context, Icons.local_mall, 'To Receive'),
+              _buildOrderTile(context, Icons.rate_review, 'To Review'),
+            ],
+          ),
+          const SizedBox(height: 8),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _buildOrderTile(context, Icons.undo, 'My Returns'),
+              _buildOrderTile(context, Icons.cancel, 'My Cancellations'),
+            ],
+          ),
+        ],
+      ),
     );
   }
 
   Widget _buildOrderTile(BuildContext context, IconData icon, String title) {
- return Padding(
+    return Padding(
         padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
         child: GestureDetector(
           onTap: () {
@@ -177,32 +191,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildServiceColumn(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16),
-          child: Text(
-            'My Service',
-            style: Theme.of(context).textTheme.titleLarge,
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey.withOpacity(0.5),
+            spreadRadius: 2,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
-        ),
-        const SizedBox(height: 16),
-        Center(
-          child: Wrap(
-            alignment: WrapAlignment.spaceEvenly,
-            children: [
-              _buildServiceTile(context, Icons.work, 'My Sells'),
-              _buildServiceTile(context, Icons.assignment, 'My Service'),
-              _buildServiceTile(context, Icons.message, 'My Messages'),
-              _buildServiceTile(context, Icons.payment, 'Payment Option'),
-              _buildServiceTile(context, Icons.help, 'Help Center'),
-              _buildServiceTile(context, Icons.chat_bubble, 'Chat with Us'),
-              _buildServiceTile(context, Icons.star, 'My Reviews'),
-            ],
+        ],
+        borderRadius: BorderRadius.circular(10),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Text(
+              'My Service',
+              style: Theme.of(context).textTheme.titleLarge,
+            ),
           ),
-        )
-      ],
+          const SizedBox(height: 16),
+          Center(
+            child: Wrap(
+              alignment: WrapAlignment.spaceEvenly,
+              children: [
+                _buildServiceTile(context, Icons.work, 'My Sells'),
+                _buildServiceTile(context, Icons.assignment, 'My Service'),
+                _buildServiceTile(context, Icons.message, 'My Messages'),
+                _buildServiceTile(context, Icons.payment, 'Payment Option'),
+                _buildServiceTile(context, Icons.help, 'Help Center'),
+                _buildServiceTile(context, Icons.chat_bubble, 'Chat with Us'),
+                _buildServiceTile(context, Icons.star, 'My Reviews'),
+              ],
+            ),
+          )
+        ],
+      ),
     );
   }
 
