@@ -4,6 +4,7 @@ import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:hardwarehub/Models/Item.dart';
 import 'package:hardwarehub/Providers/ReviewProvider.dart';
 import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/EditReviewScreen.dart';
 import 'package:provider/provider.dart';
 
 class ReviewsItemWiseScreen extends StatelessWidget {
@@ -119,7 +120,14 @@ class ReviewsItemWiseScreen extends StatelessWidget {
                                                   icon: const Icon(Icons.edit),
                                                   label: const Text(''),
                                                   onPressed: () {
-                                                    // TODO: Implement update logic
+                                                    Navigator.push(
+                                                      context,
+                                                      MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              EditReviewScreen(
+                                                                  review:
+                                                                      review)),
+                                                    );
                                                   },
                                                 ),
                                               ],

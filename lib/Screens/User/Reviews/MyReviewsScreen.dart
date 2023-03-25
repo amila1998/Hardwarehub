@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hardwarehub/Providers/ReviewProvider.dart';
 import 'package:flutter_custom_cards/flutter_custom_cards.dart';
+import 'package:hardwarehub/Screens/User/Reviews/EditReviewScreen.dart';
 import 'package:provider/provider.dart';
 
 class MyReviewsScreen extends StatelessWidget {
@@ -121,7 +122,13 @@ class MyReviewsScreen extends StatelessWidget {
                                               icon: const Icon(Icons.edit),
                                               label: const Text(''),
                                               onPressed: () {
-                                                // TODO: Implement update logic
+                                                Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          EditReviewScreen(
+                                                              review: review)),
+                                                );
                                               },
                                             ),
                                           ],
