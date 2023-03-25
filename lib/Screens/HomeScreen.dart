@@ -6,6 +6,8 @@ import 'package:hardwarehub/Screens/Items/HomePageScreen.dart';
 import 'package:hardwarehub/Screens/User/ProfileScreen.dart';
 import 'package:provider/provider.dart';
 
+import 'Cart/CartScreen.dart';
+
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -19,7 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   static const List<Widget> _pages = <Widget>[
     HomePageScreen(),
     MessagesPage(),
-    CartPage(),
+    CartScreen(),
     ProfileScreen(),
   ];
 
