@@ -10,7 +10,7 @@ class OderProvider with ChangeNotifier {
 
   List<Oder> _Oder = [];
 
-  List<Oder> get cartItems => _Oder;
+  List<Oder> get oder => _Oder;
 
 
 OderProvider(){
