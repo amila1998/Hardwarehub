@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'Hardware Hub',
+        debugShowCheckedModeBanner: false,
         theme: ThemeData(
           pageTransitionsTheme: const PageTransitionsTheme(
             builders: {
