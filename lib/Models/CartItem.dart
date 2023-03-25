@@ -7,6 +7,7 @@ class CartItem {
   int quantity;
   final String userId;
   final String itemId;
+  final String itemPhoto;
 
   CartItem({
     required this.id,
@@ -15,6 +16,7 @@ class CartItem {
     this.quantity = 1,
     required this.userId,
     required this.itemId,
+    required this.itemPhoto,
   });
 
   factory CartItem.fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -25,6 +27,7 @@ class CartItem {
       quantity: snapshot['quantity'],
       userId: snapshot['userId'],
       itemId: snapshot['itemId'],
+      itemPhoto: snapshot['itemPhoto'],
     );
   }
  Map<String, dynamic> toMap() {
@@ -34,6 +37,7 @@ class CartItem {
       'quantity': quantity,
        'userId': userId,
       'itemId': itemId,
+      'itemPhoto':itemPhoto,
     };
   }
  

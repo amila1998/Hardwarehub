@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
+import 'package:hardwarehub/Screens/Oders/AllOrders.dart';
 import 'package:hardwarehub/Screens/User/MySells/MySellsScreen.dart';
 import 'package:hardwarehub/Screens/User/ProfileSettingScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
+import 'package:hardwarehub/Screens/User/Reviews/ReviewsItemWiseScreen.dart';
 import 'package:provider/provider.dart';
 
 import '../Oders/MYOdersScreens.dart';
@@ -94,8 +96,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(height: 16),
                     _buildServiceColumn(context),
                     const SizedBox(height: 16),
+                     _buildDeliveryColumn(context),
+                    const SizedBox(height: 16),
                     // if (_userDoc['role'] == 'deliver')
-                      // TODO: Need to show deliver options
+                    // TODO: Need to show deliver options
                   ]),
                 ),
               ],
@@ -212,6 +216,73 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => MySellsScreen()),
+                  );
+                }
+                break;
+
+              case 'My Reviews':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyReviewsScreen()),
+                  );
+                }
+                break;
+            }
+          },
+          child: Column(
+            children: [
+              Icon(icon),
+              const SizedBox(height: 4),
+              Text(title),
+            ],
+          ),
+        ));
+  }
+
+  Widget _buildDeliveryColumn(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            'My Deliveries',
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+        const SizedBox(height: 16),
+        Center(
+          child: Wrap(
+            alignment: WrapAlignment.spaceEvenly,
+            children: [
+              _buildDeliveryTile(
+                  context, Icons.shopping_cart_checkout, 'All Orders'),
+              _buildDeliveryTile(
+                  context, Icons.local_shipping, 'My Deliveries'),
+              _buildDeliveryTile(context, Icons.message, 'My Messages'),
+              //_buildDeliveryTile(context, Icons.payment, 'Payment Option'),
+              _buildDeliveryTile(context, Icons.help, 'Help Center'),
+              _buildDeliveryTile(context, Icons.chat_bubble, 'Chat with Us'),
+              _buildDeliveryTile(context, Icons.star, 'My Reviews'),
+            ],
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _buildDeliveryTile(BuildContext context, IconData icon, String title) {
+    return Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+        child: GestureDetector(
+          onTap: () {
+            switch (title) {
+              case 'All Orders':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const AllOrders()),
                   );
                 }
                 break;
