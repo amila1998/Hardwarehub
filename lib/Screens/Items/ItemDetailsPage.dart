@@ -45,7 +45,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.item.id),
+        title: Text(widget.item.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -71,7 +71,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$${widget.item.price}',
+                    'Price : \$${widget.item.price}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.green,
@@ -80,7 +80,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.item.description,
+                    'Description : ${widget.item.description}',
                     style: const TextStyle(
                       fontSize: 16,
                     ),
