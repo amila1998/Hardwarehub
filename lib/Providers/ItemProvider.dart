@@ -60,6 +60,19 @@ class ItemProvider extends ChangeNotifier {
     }
   }
 
+  // private method to filter from the database
+  Future<void> filterItems(String text) async {
+    try {
+      final snapshot =
+          await _itemsCollectionRef.where('name', isEqualTo: text).get();
+      _displayedItems =
+          snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
+      notifyListeners();
+    } catch (e) {
+      print('Error loading items: $e');
+    }
+  }
+
 // method to add a new todo to the database and _items list
   Future<void> addItem(
       String name,
