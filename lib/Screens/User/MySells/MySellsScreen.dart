@@ -102,6 +102,9 @@ class _MySellsScreenState extends State<MySellsScreen> {
                               ),
                             ),
                             const SizedBox(height: 5.0),
+                            FittedBox(
+                             
+                            ),
                             Row(
                               children: [
                                 Expanded(
