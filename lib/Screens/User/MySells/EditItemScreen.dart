@@ -76,7 +76,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
     }
   }
 
-   Future<String> _uploadFile(Uint8List fileToUpload) async {
+  Future<String> _uploadFile(Uint8List fileToUpload) async {
     String imageUrl = '';
     try {
       firabase_storage.UploadTask uploadTask;
@@ -116,10 +116,10 @@ class _EditItemScreenState extends State<EditItemScreen> {
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
     final user = FirebaseAuth.instance.currentUser;
-  String? imageUrl;
+    String? imageUrl;
     void _submitForm() async {
-      if(selectedBookImageInBytes != null) {
-      imageUrl = await _uploadFile(selectedBookImageInBytes!);
+      if (selectedBookImageInBytes != null) {
+        imageUrl = await _uploadFile(selectedBookImageInBytes!);
       }
       final form = _formKey.currentState;
       if (form != null && form.validate()) {
@@ -128,13 +128,13 @@ class _EditItemScreenState extends State<EditItemScreen> {
         final price = double.parse(_priceController.text);
         final description = _descriptionController.text;
         final isAvailable = _isAvailable;
-        final mesurement = _selectedMeasurement!;
+        final mesurement = _selectedMeasurement;
         final quantity = int.parse(_quantityController.text);
-        final itemPhoto = imageUrl ?? _itemPhotoController.text ;
+        final itemPhoto = imageUrl ?? _itemPhotoController.text;
 // add the new item to the database
         final updatedItem = Item(
           id: id.toString(),
-          name:name,
+          name: name,
           price: price,
           description: description,
           isAvailable: isAvailable,
@@ -154,7 +154,8 @@ class _EditItemScreenState extends State<EditItemScreen> {
         _itemPhotoController.clear();
 
         // navigate back to the item list screen
-        Provider.of<ItemProvider>(context, listen: false).loadItemsbyuser(user.uid);
+        Provider.of<ItemProvider>(context, listen: false)
+            .loadItemsbyuser(user.uid);
         Navigator.pop(context);
       }
     }
@@ -205,6 +206,10 @@ class _EditItemScreenState extends State<EditItemScreen> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a price';
+                              }
+                              final number = int.tryParse(value);
+                              if (number == null) {
+                                return 'Please enter a valid number';
                               }
                               return null;
                             },

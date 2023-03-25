@@ -11,7 +11,6 @@ import '../../Providers/CartProvider.dart';
 import '../Oders/OdersScreens.dart';
 
 class CartScreen extends StatefulWidget {
-
   const CartScreen({Key? key}) : super(key: key);
 
   @override
@@ -19,6 +18,8 @@ class CartScreen extends StatefulWidget {
 }
 
 class _CartScreenState extends State<CartScreen> {
+  int qnt = 1;
+
   void initState() {
     super.initState();
     final user = FirebaseAuth.instance.currentUser;
@@ -28,145 +29,103 @@ class _CartScreenState extends State<CartScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final itemProvider = Provider.of<ItemProvider>(context);
     final cartProvider = Provider.of<CartProvider>(context);
-
-
-
-
-
-    
     return Scaffold(
       appBar: AppBar(
-          title: const Text('My cart'),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          )),
-      body: Container(
-        padding: const EdgeInsets.all(10.0),
-        child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 3,
-            childAspectRatio: 0.75,
-          ),
-          itemCount: cartProvider.cartItems.length,
-          itemBuilder: (BuildContext context, int index) {
-            final item = cartProvider.cartItems[index];
-            return SizedBox(
-              height: 300,
-              width: 200,
-              child: CustomCard(
-                borderRadius: 10,
-                onTap: () {},
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    // Expanded(
-                    //   child: ClipRRect(
-                    //     borderRadius: const BorderRadius.only(
-                    //       topLeft: Radius.circular(10),
-                    //       topRight: Radius.circular(10),
-                    //     ),
-                    //     child: FadeInImage.assetNetwork(
-                    //       image: item.itemPhoto,
-                    //       placeholder: 'logo.png',
-                    //       fit: BoxFit.cover,
-                    //     ),
-                    //   ),
-                    // ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10.0,
-                        vertical: 5.0,
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            item.name,
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-                          Text(
-                            '\$${item.price}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
-                            ),
-                          ),
-                          Text(
-                            'Quantity :${item.quantity}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
-                            ),
-                          ),
-                          const SizedBox(height: 5.0),
-                          Row(
-                            children: List.generate(
-                              5,
-                              (index) => const Icon(
-                                // index < item.ratings ? Icons.star : Icons.star_border,
-                                Icons.star_border,
-                                size: 20.0,
-                                color: Colors.amber,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 5.0),
-                          Row(
+        title: const Text('My Cart'),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      body: cartProvider.cartItems.isNotEmpty
+          ? Column(
+              children: [
+                Expanded(
+                  child: ListView.builder(
+                    itemCount: cartProvider.cartItems.length,
+                    itemBuilder: (context, index) {
+                      final item = cartProvider.cartItems[index];
+                      return ListTile(
+                        leading: Image.network(item.itemPhoto),
+                        title: Text(item.name),
+                        subtitle: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('\$${(item.price)*qnt}'),
+                            const SizedBox(height: 4),
+                            if(qnt>1)
+                            Text('Quantity: $qnt'),
+                            if(qnt==1)
+                            Text('Quantity: ${item.quantity}'),
+                          ],
+                        ),
+                        trailing: SizedBox(
+                          width: 144,
+                          child: Row(
                             children: [
                               Expanded(
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.backpack),
-                                  label: const Text('oder item'),
+                                child: IconButton(
                                   onPressed: () {
                                     Navigator.push(
                                       context,
                                       MaterialPageRoute(
-                                          builder: (context) =>
-                                               OdersScreens(
-                                               item:item
-                                              )),
+                                        builder: (context) => OdersScreens(
+                                          item: item,
+                                        ),
+                                      ),
                                     );
                                   },
+                                  icon: const Icon(Icons.shopping_bag),
                                 ),
                               ),
-                              const SizedBox(width: 10.0),
                               Expanded(
-                                child: ElevatedButton.icon(
-                                  icon: const Icon(Icons.delete),
-                                  label: const Text('remove the cart'),
+                                child: IconButton(
                                   onPressed: () {
                                     cartProvider.deleteItemById(item.id);
                                   },
+                                  icon: const Icon(Icons.delete),
+                                ),
+                              ),
+                              Expanded(
+                                child: IconButton(
+                                  onPressed: () {setState(() {
+                                     if (qnt > 0) qnt++;
+                                  
+                                });
+
+                                  },
+                                  icon: const Icon(Icons.add),
+                                ),
+                              ),
+                              Expanded(
+                                child: IconButton(
+                                  onPressed: () {
+                                       setState(() {
+                                     if (qnt > 1) qnt--;
+                                  
+                                });
+                                  },
+                                  icon: const Icon(Icons.remove),
                                 ),
                               ),
                             ],
                           ),
-                        ],
-                      ),
-                    ),
-                  ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
-              ),
-            );
-          },
-        ),
-      ),
-      // floatingActionButton: FloatingActionButton(
-      //   child: const Icon(Icons.add),
-      //   onPressed: () {
-      //     Navigator.push(
-      //       context,
-      //       MaterialPageRoute(builder: (context) => const AddItemScreen()),
-      //     );
-      //   },
-      // ),
+                // ElevatedButton.icon(
+                //   icon: const Icon(Icons.check),
+                //   label: const Text('Checkout'),
+                //   onPressed: () {},
+                // ),
+              ],
+            )
+          : const Placeholder(),
     );
   }
 }
