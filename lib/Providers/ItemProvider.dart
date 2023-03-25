@@ -7,46 +7,81 @@ class ItemProvider extends ChangeNotifier {
   late CollectionReference _itemsCollectionRef;
 
   // private field to store the list of items retrieved from the database
-  List<Item> _items = [];
+  List<Item> _allItems = [];
 
 // getter to retrieve the list of items
-  List<Item> get items => _items;
+  // List<Item> get items => _items;
+
+  // private field to store the list of items currently displayed
+  List<Item> _displayedItems = [];
+
+  // getter to retrieve the list of items
+  List<Item> get items => _displayedItems;
 
   // constructor to initialize the TodoProvider
   ItemProvider() {
     _itemsCollectionRef = FirebaseFirestore.instance.collection('items');
-    //_loaditems();
+  }
+
+  Future<void> reloadItems() async {
+    try {
+      final snapshot = await _itemsCollectionRef.get();
+      _displayedItems =
+          snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
+      notifyListeners();
+    } catch (e) {
+      print('Error reloading items: $e');
+    }
   }
 
 // private method to load items from the database
   Future<void> loaditems() async {
     try {
-      final user = FirebaseAuth.instance.currentUser;
+      final snapshot = await _itemsCollectionRef.get();
+      _allItems =
+          snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
+      _displayedItems = _allItems;
+      notifyListeners();
+    } catch (e) {
+      print('Error loading items: $e');
+    }
+  }
+
+// private method to load items by user from the database
+  Future<void> loadItemsbyuser(String userId) async {
+    try {
       final snapshot =
-          await _itemsCollectionRef.get();
-      _items =
+          await _itemsCollectionRef.where('userId', isEqualTo: userId).get();
+      _displayedItems =
           snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
       notifyListeners();
     } catch (e) {
       print('Error loading items: $e');
     }
   }
- 
 
-// private method to load items by user from the database
-Future<void> loadItemsbyuser(String userId) async {
-  try {
-    final snapshot = await _itemsCollectionRef.where('userId', isEqualTo: userId).get();
-    _items = snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
-    notifyListeners();
-  } catch (e) {
-    print('Error loading items: $e');
+  // private method to filter from the database
+  Future<void> filterItems(String text) async {
+    try {
+      final snapshot =
+          await _itemsCollectionRef.where('name', isEqualTo: text).get();
+      _displayedItems =
+          snapshot.docs.map((doc) => Item.fromDocumentSnapshot(doc)).toList();
+      notifyListeners();
+    } catch (e) {
+      print('Error loading items: $e');
+    }
   }
-}
 
 // method to add a new todo to the database and _items list
-  Future<void> addItem(String name, double price, String description,
-      bool isAvailable, String mesurement, int quantity, String itemPhoto) async {
+  Future<void> addItem(
+      String name,
+      double price,
+      String description,
+      bool isAvailable,
+      String mesurement,
+      int quantity,
+      String itemPhoto) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _itemsCollectionRef.add({
@@ -68,9 +103,10 @@ Future<void> loadItemsbyuser(String userId) async {
         isAvailable: isAvailable,
         mesurement: mesurement,
         quantity: quantity,
-        itemPhoto:itemPhoto,
+        itemPhoto: itemPhoto,
       );
-      _items.add(item);
+      _allItems.add(item);
+      _displayedItems = _allItems;
       notifyListeners();
     } catch (e) {
       print('Error adding item: $e');
@@ -81,7 +117,9 @@ Future<void> loadItemsbyuser(String userId) async {
   Future<void> updateItem(Item item) async {
     try {
       await _itemsCollectionRef.doc(item.id).update(item.toMap());
-      _items[_items.indexWhere((t) => t.id == item.id)] = item;
+      final index = _allItems.indexWhere((t) => t.id == item.id);
+      _allItems[index] = item;
+      _displayedItems = _allItems;
       notifyListeners();
     } catch (e) {
       print('Error updating item: $e');
@@ -92,7 +130,8 @@ Future<void> loadItemsbyuser(String userId) async {
   Future<void> deleteItemById(String id) async {
     try {
       await _itemsCollectionRef.doc(id).delete();
-      _items.removeWhere((item) => item.id == id);
+      _allItems.removeWhere((item) => item.id == id);
+      _displayedItems = _allItems;
       notifyListeners();
     } catch (e) {
       print('Error deleting item: $e');

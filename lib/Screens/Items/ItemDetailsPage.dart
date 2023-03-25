@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Models/Item.dart';
+import 'package:hardwarehub/Screens/User/Reviews/ReviewsItemWiseScreen.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/CartProvider.dart';
 import '../Cart/CartScreen.dart';
@@ -15,7 +16,6 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -47,7 +47,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.item.id),
+        title: Text(widget.item.name),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -73,7 +73,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    '\$${widget.item.price}',
+                    'Price : \$${widget.item.price}',
                     style: const TextStyle(
                       fontSize: 18,
                       color: Colors.green,
@@ -82,7 +82,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    widget.item.description,
+                    'Description : ${widget.item.description}',
                     style: const TextStyle(
                       fontSize: 16,
                     ),
@@ -141,6 +141,26 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       ),
                     ],
                   ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReviewsItemWiseScreen(
+                                      item: widget.item,
+                                    )));
+                      },
+                      child: Text(
+                        ' Reviews ',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
