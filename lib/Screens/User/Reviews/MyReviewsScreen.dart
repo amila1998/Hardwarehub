@@ -2,6 +2,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hardwarehub/Providers/ReviewProvider.dart';
+import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:provider/provider.dart';
 
 class MyReviewsScreen extends StatelessWidget {
@@ -47,25 +48,108 @@ class MyReviewsScreen extends StatelessWidget {
                   itemCount: reviewProvider.reviews.length,
                   itemBuilder: (BuildContext context, int index) {
                     final review = reviewProvider.reviews[index];
-                    return ListTile(
-                      hoverColor: Color.fromARGB(255, 140, 140, 167),
-                      contentPadding: EdgeInsets.symmetric(
-                          vertical: 10.0, horizontal: 25.0),
-                      title: Text(
-                        review.title,
-                        style: TextStyle(
-                          fontSize: 18.0,
+                    return SizedBox(
+                      height: 180,
+                      width: 200,
+                      child: CustomCard(
+                        borderRadius: 10,
+                        onTap: () {},
+                        // onTap: () {
+                        //   Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) => ItemDetailPage(
+                        //               item: item,
+                        //             )),
+                        //   );
+                        // },
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: 10.0,
+                                vertical: 5.0,
+                              ),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Padding(
+                                      padding: EdgeInsets.fromLTRB(0, 8, 0, 0)),
+                                  Text(
+                                    review.title,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Text(
+                                    review.description,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green,
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Text(
+                                    'Item Name :- ' + review.itemName,
+                                    style: const TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      color: Color.fromARGB(255, 131, 141, 143),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Row(
+                                    children: List.generate(
+                                      5,
+                                      (index) => const Icon(
+                                        // index < item.ratings ? Icons.star : Icons.star_border,
+                                        Icons.star_border,
+                                        size: 20.0,
+                                        color: Colors.amber,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(height: 8.0),
+                                  Row(
+                                    children: [
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          children: [
+                                            ElevatedButton.icon(
+                                              icon: const Icon(Icons.edit),
+                                              label: const Text(''),
+                                              onPressed: () {
+                                                // TODO: Implement update logic
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      //const SizedBox(width: 10.0),
+                                      Expanded(
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ElevatedButton.icon(
+                                              icon: const Icon(Icons.delete),
+                                              label: const Text(''),
+                                              onPressed: () {
+                                                reviewProvider.deleteReviewById(
+                                                    review.id);
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                      subtitle: Text(
-                        review.description,
-                        style: TextStyle(fontSize: 15.0),
-                      ),
-                      trailing: IconButton(
-                        icon: const Icon(Icons.delete),
-                        onPressed: () {
-                          reviewProvider.deleteReviewById(review.id);
-                        },
                       ),
                     );
                   },

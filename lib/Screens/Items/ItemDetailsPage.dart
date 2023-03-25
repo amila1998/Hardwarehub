@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Models/Item.dart';
+import 'package:hardwarehub/Screens/User/Reviews/ReviewsItemWiseScreen.dart';
 import 'package:provider/provider.dart';
 import '../../Providers/CartProvider.dart';
 import '../Cart/CartScreen.dart';
@@ -15,7 +16,6 @@ class ItemDetailPage extends StatefulWidget {
 }
 
 class _ItemDetailPageState extends State<ItemDetailPage> {
-  
   @override
   Widget build(BuildContext context) {
     final cartProvider = Provider.of<CartProvider>(context);
@@ -31,11 +31,11 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       print(quantity);
       print(itemId);
       await cartProvider.addCartItem(
-          name,
-          price,
-          quantity,
-          itemId,
-        );
+        name,
+        price,
+        quantity,
+        itemId,
+      );
 
       Navigator.push(
         context,
@@ -139,6 +139,26 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
                       ),
                     ],
                   ),
+                  Center(
+                    child: ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ReviewsItemWiseScreen(
+                                      item: widget.item,
+                                    )));
+                      },
+                      child: Text(
+                        ' Reviews ',
+                        style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        ),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
