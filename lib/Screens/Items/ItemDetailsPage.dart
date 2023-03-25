@@ -45,7 +45,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.item.id),
+        title: Text(widget.item.name),
       ),
       body: SingleChildScrollView(
         child: Column(

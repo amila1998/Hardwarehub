@@ -22,14 +22,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final itemProvider = Provider.of<ItemProvider>(context);
-    final user = FirebaseAuth.instance.currentUser;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<ItemProvider>(context, listen: false).reloadItems();
+    });
 
     return Scaffold(
-      // appBar: AppBar(
-      //     title: const Text('My Sells'),
-      //   ),
-      body: Container(
+        // appBar: AppBar(
+        //     title: const Text('My Sells'),
+        //   ),
+        body: Consumer<ItemProvider>(
+      builder: (context, itemProvider, _) => Container(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
@@ -91,14 +93,16 @@ class _HomePageScreenState extends State<HomePageScreen> {
                             ),
                           ),
                           const SizedBox(height: 5.0),
-                          Row(
-                            children: List.generate(
-                              5,
-                              (index) => const Icon(
-                                // index < item.ratings ? Icons.star : Icons.star_border,
-                                Icons.star_border,
-                                size: 20.0,
-                                color: Colors.amber,
+                          FittedBox(
+                            child: Row(
+                              children: List.generate(
+                                5,
+                                (index) => const Icon(
+                                  // index < item.ratings ? Icons.star : Icons.star_border,
+                                  Icons.star_border,
+                                  size: 20.0,
+                                  color: Colors.amber,
+                                ),
                               ),
                             ),
                           ),
@@ -112,6 +116,6 @@ class _HomePageScreenState extends State<HomePageScreen> {
           },
         ),
       ),
-    );
+    ));
   }
 }

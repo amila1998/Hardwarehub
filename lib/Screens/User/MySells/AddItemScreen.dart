@@ -23,6 +23,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   final _measurementController = TextEditingController();
   final _quantityController = TextEditingController();
   final _itemPhotoController = TextEditingController();
+  String? _selectedMeasurement;
   bool _isAvailable = true;
   String _imageURL = '';
   String selctFile = '';
@@ -35,6 +36,17 @@ class _AddItemScreenState extends State<AddItemScreen> {
   bool isItemSaved = false;
 
   File? _image;
+
+  List<String> availableMeasurements = [
+    'mm',
+    'cm',
+    'm',
+    'in',
+    'ft',
+    'yd',
+    'km',
+    'mi',
+  ];
 
   _selectFile() async {
     try {
@@ -86,7 +98,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
   @override
   Widget build(BuildContext context) {
     final itemProvider = Provider.of<ItemProvider>(context);
-    
+
     void _submitForm() async {
       String imageUrl = await _uploadFile(selectedBookImageInBytes!);
       final form = _formKey.currentState;
@@ -96,7 +108,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
         final price = double.parse(_priceController.text);
         final description = _descriptionController.text;
         final isAvailable = _isAvailable;
-        final mesurement = _measurementController.text;
+        final mesurement = _selectedMeasurement!;
         final quantity = int.parse(_quantityController.text);
         final itemPhoto = imageUrl;
         // add the new item to the database
@@ -144,11 +156,12 @@ class _AddItemScreenState extends State<AddItemScreen> {
                           if (selectedBookImageInBytes != null)
                             // Image.network(
                             //   _imageURL,
-                              // height: 200,
-                              // fit: BoxFit.cover,
-                            Image.memory(selectedBookImageInBytes!,
-                            height: 200,
-                              ),
+                            // height: 200,
+                            // fit: BoxFit.cover,
+                            Image.memory(
+                              selectedBookImageInBytes!,
+                              height: 200,
+                            ),
                           TextFormField(
                             decoration:
                                 const InputDecoration(labelText: 'Name'),
@@ -183,15 +196,21 @@ class _AddItemScreenState extends State<AddItemScreen> {
                                   return 'Please enter a description';
                                 }
                               }),
-                          TextFormField(
+                          DropdownButtonFormField<String>(
                             decoration:
                                 const InputDecoration(labelText: 'Measurement'),
-                            controller: _measurementController,
-                            validator: (value) {
-                              if (value!.isEmpty) {
-                                return 'Please enter a measurement';
-                              }
+                            value: _selectedMeasurement,
+                            onChanged: (newValue) {
+                              setState(() {
+                                _selectedMeasurement = newValue!;
+                              });
                             },
+                            items: availableMeasurements
+                                .map((measurement) => DropdownMenuItem(
+                                      value: measurement,
+                                      child: Text(measurement),
+                                    ))
+                                .toList(),
                           ),
                           TextFormField(
                             decoration:
