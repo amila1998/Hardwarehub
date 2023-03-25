@@ -162,6 +162,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       value: 'seller',
                       child: Text('Seller'),
                     ),
+                    DropdownMenuItem(
+                      value: 'deliver',
+                      child: Text('Deliver'),
+                    ),
                   ],
                   decoration: const InputDecoration(
                     labelText: 'Role',
