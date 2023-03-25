@@ -25,17 +25,19 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       final price = widget.item.price;
       final quantity = 1;
       final itemId = widget.item.id;
+      final itemPhoto = widget.item.itemPhoto;
 
       print(name);
       print(price);
       print(quantity);
       print(itemId);
       await cartProvider.addCartItem(
-        name,
-        price,
-        quantity,
-        itemId,
-      );
+          name,
+          price,
+          quantity,
+          itemId,
+          itemPhoto,
+        );
 
       Navigator.push(
         context,

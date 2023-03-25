@@ -31,7 +31,7 @@ Future<void> loadCartItems(String userId) async {
     }
   }
 
- Future<void> addCartItem(String name, double price,int quantity,String itemId ) async {
+ Future<void> addCartItem(String name, double price,int quantity,String itemId,String itemPhoto ) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _cartCollectionRef.add({
@@ -39,7 +39,8 @@ Future<void> loadCartItems(String userId) async {
         'price': price,
         'quantity': quantity,
         'userId': user!.uid,
-        'itemId': itemId
+        'itemId': itemId,
+        'itemPhoto':itemPhoto,
       });
       final cartItems =CartItem(
         id: docRef.id,
@@ -48,6 +49,8 @@ Future<void> loadCartItems(String userId) async {
         quantity: quantity,
         userId: user.uid,
         itemId:itemId,
+        itemPhoto:itemPhoto,
+        
       );
       _cartItems.add(cartItems);
       notifyListeners();
