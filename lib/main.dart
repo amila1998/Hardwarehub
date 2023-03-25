@@ -14,6 +14,7 @@ import 'package:hardwarehub/firebase_options.dart';
 import 'package:provider/provider.dart';
 
 import 'Providers/CartProvider.dart';
+import 'Providers/DeliveryProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => ReviewProvider()),
         ChangeNotifierProvider(create: (_) => CartProvider()),
         ChangeNotifierProvider(create: (_) => OderProvider()),
+        ChangeNotifierProvider(create: (_) => DeliveryProvider()),
       ],
       child: MaterialApp(
         title: 'Hardware Hub',

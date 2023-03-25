@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:hardwarehub/models/delivery.dart';
+
+import '../Models/Delivery.dart';
+
 
 class DeliveryProvider extends ChangeNotifier {
   late CollectionReference _deliveriesCollectionRef;
@@ -13,10 +15,10 @@ class DeliveryProvider extends ChangeNotifier {
   DeliveryProvider() {
     _deliveriesCollectionRef =
         FirebaseFirestore.instance.collection('deliveries');
-    _loaddeliveries();
+    
   }
 
-  Future<void> _loaddeliveries() async {
+  Future<void> loaddeliveries() async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final snapshot = await _deliveriesCollectionRef.get();
@@ -43,17 +45,30 @@ class DeliveryProvider extends ChangeNotifier {
   Future<void> addDelivery(
       String orderId,
       String status,
+      String name,
+      String userId,
+      String itemId,
+      String itemPhoto
     ) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _deliveriesCollectionRef.add({
         'orderId': orderId,
         'status': status,
+        'name': name,
+        'userId': userId,
+        'itemId': itemId,
+        'itemPhoto':itemPhoto,
       });
-      final delivery = Delivery(
+      final delivery =Delivery(
         id: docRef.id,
         orderId: orderId,
         status: status,
+        name: name,
+        userId: userId,
+        itemId: itemId,
+        itemPhoto:itemPhoto,
+        
       );
       _deliveries.add(delivery);
       notifyListeners();

@@ -10,6 +10,7 @@ import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/ReviewsItemWiseScreen.dart';
 import 'package:provider/provider.dart';
 
+import '../Delivery/DeliveryScreen.dart';
 import '../Oders/MYOdersScreens.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -287,11 +288,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }
                 break;
 
-              case 'My Reviews':
+              case 'My Deliveries':
                 {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => MyReviewsScreen()),
+                    MaterialPageRoute(builder: (context) => DeliveryScreen()),
                   );
                 }
                 break;
