@@ -1,9 +1,9 @@
 # Hardwarehub
 ## Group Members
-IT20259334   -   Aththanayaka H.A.M.U.I 
-IT20089436   -   Senarathne S.M.A.D
-IT20045708   -   Udayantha Yapa Y.M.S
-IT20276850   -   Herath H M T P
+IT20259334   -   Aththanayaka H.A.M.U.I <br/>
+IT20089436   -   Senarathne S.M.A.D <br/>
+IT20045708   -   Udayantha Yapa Y.M.S <br/>
+IT20276850   -   Herath H M T P <br/>
 
 
 
