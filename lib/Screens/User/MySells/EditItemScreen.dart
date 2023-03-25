@@ -128,7 +128,7 @@ class _EditItemScreenState extends State<EditItemScreen> {
         final price = double.parse(_priceController.text);
         final description = _descriptionController.text;
         final isAvailable = _isAvailable;
-        final mesurement = _selectedMeasurement!;
+        final mesurement = _selectedMeasurement;
         final quantity = int.parse(_quantityController.text);
         final itemPhoto = imageUrl ?? _itemPhotoController.text ;
 // add the new item to the database
