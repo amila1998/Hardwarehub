@@ -15,7 +15,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
-
+  late final ItemProvider _itemProvider = Provider.of<ItemProvider>(context, listen: false);
   static const List<Widget> _pages = <Widget>[
     HomePageScreen(),
     MessagesPage(),
@@ -23,10 +23,14 @@ class _HomeScreenState extends State<HomeScreen> {
     ProfileScreen(),
   ];
 
+
+
   void _onTabSelected(int index) {
+    _itemProvider.reloadItems();
     setState(() {
       _selectedIndex = index;
     });
+
   }
 
   @override
@@ -35,7 +39,7 @@ class _HomeScreenState extends State<HomeScreen> {
     // final authProvider = Provider.of<AuthProvider>(context);
     // final itemProvider = Provider.of<ItemProvider>(context);
     // final user = FirebaseAuth.instance.currentUser;
-    
+
     return Scaffold(
       body: IndexedStack(
         index: _selectedIndex,
