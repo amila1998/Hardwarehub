@@ -25,6 +25,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
       final price = widget.item.price;
       final quantity = 1;
       final itemId = widget.item.id;
+      final itemPhoto = widget.item.itemPhoto;
 
       print(name);
       print(price);
@@ -35,6 +36,7 @@ class _ItemDetailPageState extends State<ItemDetailPage> {
           price,
           quantity,
           itemId,
+          itemPhoto,
         );
 
       Navigator.push(

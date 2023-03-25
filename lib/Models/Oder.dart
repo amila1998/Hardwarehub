@@ -8,6 +8,7 @@ class Oder {
   final String userId;
   final String itemId;
   final String status;
+  final String itemPhoto;
 
   Oder({
     required this.id,
@@ -17,6 +18,7 @@ class Oder {
     required this.userId,
     required this.itemId,
     required this.status,
+    required this.itemPhoto,
   });
 
   factory Oder.fromDocumentSnapshot(DocumentSnapshot snapshot) {
@@ -28,6 +30,7 @@ class Oder {
       userId: snapshot['userId'],
       itemId: snapshot['itemId'],
       status: snapshot['status'],
+      itemPhoto: snapshot['itemPhoto'],
     );
   }
   Map<String, dynamic> toMap() {
@@ -38,6 +41,7 @@ class Oder {
       'userId': userId,
       'itemId': itemId,
       'status': status,
+      'itemPhoto':itemPhoto,
     };
   }
 }

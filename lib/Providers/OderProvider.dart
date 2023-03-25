@@ -10,7 +10,7 @@ class OderProvider with ChangeNotifier {
 
   List<Oder> _Oder = [];
 
-  List<Oder> get cartItems => _Oder;
+  List<Oder> get oder => _Oder;
 
 
 OderProvider(){
@@ -43,7 +43,7 @@ Future<void> loadCartItems(String userId) async {
     }
   }
 
- Future<void> addOder(String name, double price,int quantity,String itemId,String status ) async {
+ Future<void> addOder(String name, double price,int quantity,String itemId,String status,String itemPhoto ) async {
     try {
       final user = FirebaseAuth.instance.currentUser;
       final docRef = await _oderCollectionRef.add({
@@ -53,6 +53,7 @@ Future<void> loadCartItems(String userId) async {
         'userId': user!.uid,
         'itemId': itemId,
         'status':status,
+        'itemPhoto':itemPhoto,
       });
       final oder =Oder(
         id: docRef.id,
@@ -62,6 +63,7 @@ Future<void> loadCartItems(String userId) async {
         userId: user.uid,
         itemId:itemId,
         status:status,
+        itemPhoto:itemPhoto,
       );
       _Oder.add(oder);
       notifyListeners();
