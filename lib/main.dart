@@ -4,6 +4,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:hardwarehub/PageTranstitons/MyPageTransitionsTheme.dart';
 import 'package:hardwarehub/Providers/AuthProvider.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
+import 'package:hardwarehub/Providers/OderProvider.dart';
 import 'package:hardwarehub/Providers/ReviewProvider.dart';
 import 'package:hardwarehub/Screens/Auth/AuthScreen.dart';
 import 'package:hardwarehub/Screens/Auth/LoginScreen.dart';
@@ -11,6 +12,8 @@ import 'package:hardwarehub/Screens/HomeScreen.dart';
 import 'package:hardwarehub/Screens/SplashScreen.dart';
 import 'package:hardwarehub/firebase_options.dart';
 import 'package:provider/provider.dart';
+
+import 'Providers/CartProvider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -30,6 +33,8 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (_) => AuthProvider()),
         ChangeNotifierProvider(create: (_) => ItemProvider()),
         ChangeNotifierProvider(create: (_) => ReviewProvider()),
+        ChangeNotifierProvider(create: (_) => CartProvider()),
+        ChangeNotifierProvider(create: (_) => OderProvider()),
       ],
       child: MaterialApp(
         title: 'Hardware Hub',

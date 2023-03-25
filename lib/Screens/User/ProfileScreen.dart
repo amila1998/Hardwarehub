@@ -8,6 +8,8 @@ import 'package:hardwarehub/Screens/User/Reviews/AddReviewScreen.dart';
 import 'package:hardwarehub/Screens/User/Reviews/MyReviewsScreen.dart';
 import 'package:provider/provider.dart';
 
+import '../Oders/MYOdersScreens.dart';
+
 class ProfileScreen extends StatefulWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -115,7 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            _buildOrderTile(context, Icons.payment, 'To Pay'),
+            _buildOrderTile(context, Icons.on_device_training, 'My Oder'),
             _buildOrderTile(context, Icons.local_shipping, 'To Ship'),
             _buildOrderTile(context, Icons.local_mall, 'To Receive'),
             _buildOrderTile(context, Icons.rate_review, 'To Review'),
@@ -134,18 +136,38 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildOrderTile(BuildContext context, IconData icon, String title) {
-    return GestureDetector(
-      onTap: () {
-        // Navigate to order screen
-      },
-      child: Column(
-        children: [
-          Icon(icon),
-          const SizedBox(height: 4),
-          Text(title),
-        ],
-      ),
-    );
+ return Padding(
+        padding: const EdgeInsets.only(left: 10.0, right: 10.0, bottom: 10.0),
+        child: GestureDetector(
+          onTap: () {
+            switch (title) {
+              case 'My Oder':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyOdersScreens()),
+                  );
+                }
+                break;
+
+              case 'My Reviews':
+                {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MyReviewsScreen()),
+                  );
+                }
+                break;
+            }
+          },
+          child: Column(
+            children: [
+              Icon(icon),
+              const SizedBox(height: 4),
+              Text(title),
+            ],
+          ),
+        ));
   }
 
   Widget _buildServiceColumn(BuildContext context) {
