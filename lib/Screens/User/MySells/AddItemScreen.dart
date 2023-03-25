@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:hardwarehub/Providers/ItemProvider.dart';
 import 'package:image_picker/image_picker.dart';
@@ -132,7 +133,9 @@ class _AddItemScreenState extends State<AddItemScreen> {
         _itemPhotoController.clear();
 
         // navigate back to the item list screen
-        Navigator.pop(context);
+        final user = FirebaseAuth.instance.currentUser;
+        
+        Navigator.pop(context, true);
       }
     }
 

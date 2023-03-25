@@ -38,7 +38,7 @@ class _HomePageScreenState extends State<HomePageScreen> {
               border: InputBorder.none,
             ),
             onChanged: (value) {
-              if (value == null || value == null) {
+              if (value == null || value == '') {
                 Provider.of<ItemProvider>(context, listen: false).reloadItems();
               } else {
                 Provider.of<ItemProvider>(context, listen: false)
