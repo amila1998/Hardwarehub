@@ -20,7 +20,7 @@ class _MyOdersScreensState extends State<MyOdersScreens> {
  void initState() {
     super.initState();
     final user = FirebaseAuth.instance.currentUser;
-    Provider.of<OderProvider>(context, listen: false).loadAllOder();
+    Provider.of<OderProvider>(context, listen: false).loadCartItems(user!.uid);
   }
 
 
