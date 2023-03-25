@@ -31,20 +31,42 @@ class _HomePageScreenState extends State<HomePageScreen> {
 
     return Scaffold(
         appBar: AppBar(
-          title: TextField(
-            controller: _searchController,
-            decoration: const InputDecoration(
-              hintText: 'Search by item name',
-              border: InputBorder.none,
+          elevation: 4,
+          backgroundColor: Colors.transparent,
+          title: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(10),
             ),
-            onChanged: (value) {
-              if (value == null || value == '') {
-                Provider.of<ItemProvider>(context, listen: false).reloadItems();
-              } else {
-                Provider.of<ItemProvider>(context, listen: false)
-                    .filterItems(value);
-              }
-            },
+            child: Row(
+              children: [
+                const SizedBox(width: 10),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: TextField(
+                    controller: _searchController,
+                    decoration: const InputDecoration(
+                      hintText: 'Search by item name',
+                      border: InputBorder.none,
+                      prefixIcon: IconTheme(
+                        data: IconThemeData(color: Colors.black),
+                        child: Icon(Icons.search),
+                      ),
+                    ),
+                    onChanged: (value) {
+                      if (value == null || value == '') {
+                        Provider.of<ItemProvider>(context, listen: false)
+                            .reloadItems();
+                      } else {
+                        Provider.of<ItemProvider>(context, listen: false)
+                            .filterItems(value);
+                      }
+                    },
+                  ),
+                ),
+                const SizedBox(width: 10),
+              ],
+            ),
           ),
         ),
         body: Consumer<ItemProvider>(

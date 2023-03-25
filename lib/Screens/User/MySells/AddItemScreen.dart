@@ -134,7 +134,7 @@ class _AddItemScreenState extends State<AddItemScreen> {
 
         // navigate back to the item list screen
         final user = FirebaseAuth.instance.currentUser;
-        
+
         Navigator.pop(context, true);
       }
     }
@@ -185,6 +185,10 @@ class _AddItemScreenState extends State<AddItemScreen> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter a price';
+                              }
+                              final number = int.tryParse(value);
+                              if (number == null) {
+                                return 'Please enter a valid number';
                               }
                               return null;
                             },
